@@ -1,4 +1,4 @@
-void comparisonPlots(std::string fileName1, std::string fileName2) {
+void comparisonPlots(std::string fileName1, std::string fileName2, std::string cut = "") {
 
   TFile *file1 = new TFile(fileName1.c_str());
   TFile *file2 = new TFile(fileName2.c_str());
@@ -48,13 +48,13 @@ void comparisonPlots(std::string fileName1, std::string fileName2) {
 
 	std::string hist1Name = stackName + "1";
 	TH1F *hist1 = new TH1F(hist1Name.c_str(), leaf1->GetName(), 100, 1, 0); // auto-bin
-	tree1->Project(hist1Name.c_str(), leaf1->GetName());
+	tree1->Project(hist1Name.c_str(), leaf1->GetName(), cut.c_str());
 	hist1->Scale(1./hist1->Integral());
 	hist1->SetLineColor(kRed);
 
 	std::string hist2Name = stackName + "2";
 	TH1F *hist2 = new TH1F(hist2Name.c_str(), leaf1->GetName(), 100, 1, 0); // auto-bin
-	tree2->Project(hist2Name.c_str(), leaf2->GetName());
+	tree2->Project(hist2Name.c_str(), leaf2->GetName(), cut.c_str());
 	hist2->Scale(1./hist2->Integral());
 	hist2->SetLineColor(kBlue);
 
